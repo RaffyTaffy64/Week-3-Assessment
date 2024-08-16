@@ -60,11 +60,40 @@ const OTHER_FOSSILS = [
   },
 ];
 
-// TODO: Replace this comment with your code
 
 app.get('/random-fossil.json', (req, res) => {
   const randomFossil = lodash.sample(OTHER_FOSSILS);
   res.json(randomFossil);
+});
+
+app.get('/', (req, res) => {
+  if (req.session.name) {
+    return res.redirect('/top-fossils');
+  }
+  res.render('homepage.html.njk');
+});
+
+app.post('/get-name', (req, res) => {
+  req.session.name = req.body.name;
+  res.redirect('/top-fossils');
+});
+
+app.get('/top-fossils', (req, res) => {
+  const name = req.session.name
+  res.render('top-fossils.html.njk', { fossil: MOST_LIKED_FOSSILS, name: req.session.name })
+})
+
+app.post('/like-fossil', (req, res) => {
+  const fossilId = req.body.fossilId;
+  if (MOST_LIKED_FOSSILS[fossilId]) {
+    MOST_LIKED_FOSSILS[fossilId].num_likes++;
+  }
+  res.render('thank-you.html.njk', { user: req.session.name });
+});
+
+app.get('/random-fossil.json', (req, res) => {
+  const randomIndex = Math.floor(Math.random() * OTHER_FOSSILS.length);
+  res.json(OTHER_FOSSILS[randomIndex]);
 });
 
 ViteExpress.listen(app, port, () => {

@@ -5,13 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Most Liked Fossils</title>
+      <style>
+    .fossil-div {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .fossil-div img {
+      max-width: 100px;
+      margin-right: 10px;
+    }
+    .fossil-div h3 {
+      margin-top: 0;
+    }
+  </style>
   </head>
   <body>
+  {% extends 'base.html.njk' %}
+
+ {% block content %}
+  <h1>Welcome, {{ user }}!</h1>
+  {% for fossil in fossils %}
     <div class="fossil-div">
-      <h3>{{ fossils[0].name }}</h3>
-      {# // {% for fossilKEY, fossil,VALUE in most_liked_fossil %} #}
-      <h2>Liked {{ fossils[0].num_likes }} times.</h2>
-      <img src="{{ fossils[0].img }}" />
+      <h3>{{ user }}, this is a {{ fossil.name }}</h3>
+      <h2>Liked {{ fossilID.num_likes }} times.</h2>
+      <img src="{{ fossilID.img }}" />
     </div>
+  {% endfor %}
+  <form action="/like-fossil" method="POST">
+    <select name="fossilId">
+      {% for key, fossil in fossils %}
+        <option value="{{ key }}">{{ fossilID.name }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Like This Fossil" />
+  </form>
+{% endblock %}
+
   </body>
 </html>

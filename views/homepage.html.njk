@@ -7,17 +7,25 @@
     <title>Most Liked Fossils</title>
   </head>
   <body>
-    <h1>Most Liked Fossils</h1>
-
-    <form action="/get-name">
-      <div>
-        <label for="namefield">What's your name?</label>
-        <input id="namefield" type="text" name="name" required />
-      </div>
-      <div>
-        <input type="submit" />
-      </div>
-    </form>
+    {% extends 'base.html.njk' %}
+    
+   {% block content %}
+  <h1>Most Liked Fossils</h1>
+  <form action="/get-name" method="POST">
+    <div>
+      <label for="namefield">What's your name?</label>
+      <input id="namefield" type="text" name="name" required />
+    </div>
+    <div>
+      <input type="submit" />
+    </div>
+  </form>
+  <button id="random-fossil-btn">Get Random Fossil</button>
+  <div id="random-fossil">
+    <p id="random-fossil-name"></p>
+    <img id="random-fossil-image" src="" alt="Random Fossil" />
+  </div>
+{% endblock %}
 
     <h1>Random Fossil</h1>
     <button id="get-random-fossil">Get Random Fossil</button>
