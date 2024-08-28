@@ -61,7 +61,7 @@ const OTHER_FOSSILS = [
 ];
 
 
-app.get('/random-fossil.json', (req, res) => {
+app.get('/random-fossils.json', (req, res) => {
   const randomFossil = lodash.sample(OTHER_FOSSILS);
   res.json(randomFossil);
 });

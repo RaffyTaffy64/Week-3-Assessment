@@ -9,3 +9,7 @@ document.getElementById('random-fossil-btn').addEventListener('click', () => {
     })
     .catch(error => console.error('Error fetching random fossil:', error));
 });
+
+
+
+
